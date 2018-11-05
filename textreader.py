@@ -37,7 +37,7 @@ def no_e():
         count = 0
         for line in file:
             linecount+=1
-            if not 'e' in line:  
+            if not 'e' in line.lower():  
                 count +=1
         print(f"{(count/linecount)*100:.3f}%")
         
@@ -54,7 +54,7 @@ False
 '''
     for l in str:
         for i in range(len(word)):
-             if l.lower() == word[i].lower():
+            if l.lower() == word[i].lower():
                  return False
                 
     else:
@@ -79,8 +79,44 @@ def uses_only(word,str):
     else:
         return False
 def words_with_only(str):
-    pass
+    with open("words.txt") as file:
+        for line in file:
+            if uses_only(line.strip(),str):
+                print(line)
+def uses_all(word,str):
+    count = 0
+    for i in range(len(str)):
+        if str[i].lower() in word:
+            count+=1
+    if count == len(str):
+        return True
+    else:
+        return False
+def how_many_uses_all(str):
+    count = 0
+    with open("words.txt") as file:
+        for line in file:
+            if uses_all(line.strip(),str):
+                count+=1
+        print(count)
+def is_abecedarian(word):
+    count = 0
+    for i in range(len(word)-1):
+        if word[i] <= word[i+1]:
+            count+=1
+    if count == len(word)-1:
+        return True
+    else:
+        return False
+def count_abecedarian():
+    count = 0
+    with open("words.txt") as file:
+        for line in file:
+            if is_abecedarian(line.strip()):
+                count+=1
+        print(count)
 if __name__=="__main__":
     import doctest
     doctest.testmod()
-    count_avoids()
+    count_abecedarian()
+    
